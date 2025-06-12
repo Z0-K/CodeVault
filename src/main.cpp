@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "snippet_utils.hpp"
+#include <limits>
 
 int main(){
     std::vector<std::string> snippets;
@@ -17,6 +18,15 @@ int main(){
         std::cout << "Enter choice: ";
         std::cin >> choice;
         std::cin.ignore(); 
+
+        if(!(std::cin >> choice)){
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Enter a number.\n";
+            continue;
+        }
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         switch(choice){
             case 1:
