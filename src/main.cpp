@@ -16,8 +16,6 @@ int main(){
         std::cout << "3. Save to File\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter choice: ";
-        std::cin >> choice;
-        std::cin.ignore(); 
 
         if(!(std::cin >> choice)){
             std::cin.clear();
