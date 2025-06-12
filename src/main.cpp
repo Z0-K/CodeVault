@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <snippet_utils.hpp>
+#include "snippet_utils.hpp"
 
 int main(){
     std::vector<std::string> snippets;
@@ -20,13 +20,14 @@ int main(){
 
         switch(choice){
             case 1:
+            addSnippet(snippets);
                 break;
             case 2:
                 break;
             case 3:
                 break;
             case 0:
-                std::cout << "Exiting CodeVault.";
+                std::cout << "Exiting CodeVault. GoodBye!\n";
                 return 0;
             default:
                 std::cout << "Invalid choice. Try again.\n";
