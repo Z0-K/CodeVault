@@ -7,5 +7,6 @@
 
 void addSnippet(std::vector<std::string>& snippets);
 void listSnippets(const std::vector<std::string>& snippets);
+void saveSnippetsToFile(const std::vector<std::string>& snippets, const std::string& filename);
 
 #endif

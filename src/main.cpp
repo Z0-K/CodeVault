@@ -34,6 +34,7 @@ int main(){
             listSnippets(snippets);
                 break;
             case 3:
+            saveSnippetsToFile(snippets, filename);
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";

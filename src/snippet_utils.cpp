@@ -38,3 +38,19 @@ void listSnippets(const std::vector<std::string>& snippets){
         std::cout << "[" << i + 1 << "]\n" << snippets[i] << "\n";
     }
 }
+
+void saveSnippetsToFile(const std::vector<std::string>& snippets, const std::string& filename){
+    std::ofstream outFile(filename);
+    if(!outFile){
+        std::cerr << "Err opening file: " << filename << "\n";
+        return;
+    }
+
+    for(const auto& snippet: snippets){
+        outFile << "--- SNIPPET ---\n";
+        outFile << snippet << "\n";
+    }
+
+    outFile.close();
+    std::cout<< "Snippets saved to " << filename << "\n";
+}
