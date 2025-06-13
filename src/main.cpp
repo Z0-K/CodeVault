@@ -31,6 +31,7 @@ int main(){
             addSnippet(snippets);
                 break;
             case 2:
+            listSnippets(snippets);
                 break;
             case 3:
                 break;

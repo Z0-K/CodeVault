@@ -6,5 +6,6 @@
 #include <string>
 
 void addSnippet(std::vector<std::string>& snippets);
+void listSnippets(const std::vector<std::string>& snippets);
 
 #endif

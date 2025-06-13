@@ -26,3 +26,15 @@ void addSnippet(std::vector<std::string>& snippets){
     snippets.push_back(snippet);
     std::cout <<"Snippet added.\n";
 }
+
+void listSnippets(const std::vector<std::string>& snippets){
+    if(snippets.empty()){
+        std::cout << "No snippets available.\n";
+        return;
+    }
+
+    std::cout << "\n --Snippets --\n";
+    for(size_t i=0; i < snippets.size(); i++){
+        std::cout << "[" << i + 1 << "]\n" << snippets[i] << "\n";
+    }
+}
