@@ -35,31 +35,31 @@ void SnippetManager::add_snippet(){
     std::cout <<"Snippet added.\n";
 }
 
-// void listSnippets(const std::vector<std::string>& snippets){
-//     if(snippets.empty()){
-//         std::cout << "No snippets available.\n";
-//         return;
-//     }
+void SnippetManager::list_snippets(){
+    for(const auto &s : snippets){
+        std::cout << "\nID: " <<s.id 
+                << "\nTitle: " <<s.title
+                << "\nTag: " <<s.tag
+                << "\nContent:\n" <<s.content
+                <<"----------\n";
+    }
+}
 
-//     std::cout << "\n --Snippets --\n";
-//     for(size_t i=0; i < snippets.size(); i++){
-//         std::cout << "[" << i + 1 << "]\n" << snippets[i] << "\n";
-//     }
-// }
+void SnippetManager::save_to_file(const std::string &filename){
+    std::ofstream outFile(filename);
+    if(!outFile){
+        std::cerr << "Error: Unable to opening file: " << filename << "\n";
+        return;
+    }
 
-// void saveSnippetsToFile(const std::vector<std::string>& snippets, const std::string& filename){
-//     std::ofstream outFile(filename);
-//     if(!outFile){
-//         std::cerr << "Err opening file: " << filename << "\n";
-//         return;
-//     }
+    for(const auto& s: snippets){
+        outFile << "\nID: "<<  s.id
+                << "\nTitle: "<< s.title
+                << "\nTag: " << s.tag
+                << "\nContent: " << s.content
+                << "\n<<<END>>>";
+    }
 
-//     for(const auto& snippet: snippets){
-//         outFile << "--- SNIPPET ---\n";
-//         outFile << snippet << "\n";
-//     }
-
-//     outFile.close();
-//     std::cout<< "Snippets saved to " << filename << "\n";
-// }
+    std::cout<< "Snippets saved to " << filename << "\n";
+}
 

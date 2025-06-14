@@ -31,8 +31,10 @@ int main(){
             manager.add_snippet();
                 break;
             case 2:
+            manager.list_snippets();
                 break;
             case 3:
+            manager.save_to_file(filename);
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";
