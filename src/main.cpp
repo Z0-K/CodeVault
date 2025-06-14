@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "snippet_utils.hpp"
+#include "snippet_manager.hpp"
 #include <limits>
 
 int main(){
-    std::vector<std::string> snippets;
+    SnippetManager manager;
     const std::string filename = "snippets.txt";
     int choice;
 
@@ -28,13 +28,11 @@ int main(){
 
         switch(choice){
             case 1:
-            addSnippet(snippets);
+            manager.add_snippet();
                 break;
             case 2:
-            listSnippets(snippets);
                 break;
             case 3:
-            saveSnippetsToFile(snippets, filename);
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";

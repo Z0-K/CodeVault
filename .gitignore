@@ -1,4 +1,4 @@
-#g++ src/main.cpp src/snippet_utils.cpp -o codevault
+#g++ src/main.cpp src/snippet_manager.cpp -o codevault
 #codevault.exe
 # Ignore build files
 *.o
