@@ -6,7 +6,7 @@ void SnippetManager::add_snippet(){
     Snippet s;
     s.id = nextID++;
 
-    std::cout << "Enter snippet title: ";
+    std::cout << "\nEnter snippet title: ";
     std::getline(std::cin, s.title);
 
     std::cout << "Enter snippet tag: ";
@@ -37,10 +37,10 @@ void SnippetManager::add_snippet(){
 
 void SnippetManager::list_snippets(){
     for(const auto &s : snippets){
-        std::cout << "\nID: " <<s.id 
-                << "\nTitle: " <<s.title
-                << "\nTag: " <<s.tag
-                << "\nContent:\n" <<s.content
+        std::cout<<"----------\n" << s.id 
+                << "\n" <<s.title
+                << "\n" <<s.tag
+                << "\n" <<s.content
                 <<"----------\n";
     }
 }
@@ -53,13 +53,48 @@ void SnippetManager::save_to_file(const std::string &filename){
     }
 
     for(const auto& s: snippets){
-        outFile << "\nID: "<<  s.id
+        outFile <<  s.id
                 << "\nTitle: "<< s.title
                 << "\nTag: " << s.tag
-                << "\nContent: " << s.content
+                << "\nContent:" << s.content
                 << "\n<<<END>>>";
     }
 
     std::cout<< "Snippets saved to " << filename << "\n";
 }
 
+void SnippetManager::load_from_file(const std::string &filename){
+    std::ifstream inFile(filename);
+    if(!inFile){
+        std::cerr << "No snippets file found.\n";
+        return;
+    }
+
+    std::string line;
+    while(std::getline(inFile, line)){
+        Snippet s;
+        try{
+            s.id = std::stoi(line);
+        } catch(...){
+            std::cerr << "Corrupted ID.\n";
+            continue;
+        }
+
+        std::getline(inFile, s.title);
+        std::getline(inFile, s.tag);
+
+        std::string content;
+        while (std::getline(inFile, line) && line != "<<<END>>>") {
+            content += line + "\n";
+        }
+        s.content = content;
+
+        snippets.push_back(s);
+        if (s.id >= nextID) {
+            nextID = s.id + 1;
+        }
+
+    }
+
+    std::cout << "Loaded " << snippets.size() << " snippets from file.\n";
+}

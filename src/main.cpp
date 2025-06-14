@@ -10,12 +10,13 @@ int main(){
     int choice;
 
     while(true){
-        std::cout << "\n CodeVault Menu \n";
+        std::cout << "\n!--CodeVault Menu--!\n";
         std::cout << "1. Add Snippet\n";
         std::cout << "2. List Snippets\n";
         std::cout << "3. Save to File\n";
+        std::cout << "4. Load from File\n";
         std::cout << "0. Exit\n";
-        std::cout << "Enter choice: ";
+        std::cout << "Enter choice: \n";
 
         if(!(std::cin >> choice)){
             std::cin.clear();
@@ -35,6 +36,9 @@ int main(){
                 break;
             case 3:
             manager.save_to_file(filename);
+                break;
+            case 4:
+            manager.load_from_file(filename);
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";
