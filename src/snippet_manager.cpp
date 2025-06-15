@@ -1,6 +1,4 @@
 #include "snippet_manager.hpp"
-#include <algorithm>
-
 
 void SnippetManager::add_snippet(){
     Snippet s;
@@ -97,4 +95,55 @@ void SnippetManager::load_from_file(const std::string &filename){
     }
 
     std::cout << "Loaded " << snippets.size() << " snippets from file.\n";
+}
+
+void SnippetManager::searchSnippets(){
+    int option;
+    std::string query;
+
+    std::cout << "\nSearch by: \n";
+    std::cout << "1. Title\n";
+    std::cout << "2. Tag\n";
+    std::cout << "3. Content Keyword\n";
+    std::cout << "Enter choice: ";
+    std::cin >> option;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout<< "Enter search query: ";
+    std::getline(std::cin, query);
+
+    bool found = false;
+    for(const auto &s: snippets){
+        bool match = false;
+        switch (option){
+            case 1:
+                match = s.title.find(query) != std::string::npos;
+                break;
+            case 2:
+                match = s.tag.find(query) != std::string::npos;
+                break;
+            case 3:
+                match = s.content.find(query) != std::string::npos;
+                break;
+            default: 
+                std::cout << "Invalid search option.\n";
+                return;
+        }
+
+        if(match){
+            found = true;
+            std::cout<<"----------";
+            std::cout<<"\nID: "<<s.id<<"\n";
+            std::cout<<"Title: "<<s.title<<"\n";
+            std::cout<<"Tag: "<<s.tag<<"\n";
+            std::cout<<"Content: \n"<<s.content<<"\n";
+            std::cout<<"----------\n";
+        }
+    }
+
+    
+    if(!found){
+        std::cout<<"No matching snippets found.\n";
+    }
+
 }

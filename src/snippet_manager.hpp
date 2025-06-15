@@ -6,6 +6,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <limits>
+#include <algorithm>
 
 class SnippetManager{
     private: 
@@ -17,6 +19,7 @@ class SnippetManager{
         void list_snippets();
         void save_to_file(const std::string &filename);
         void load_from_file(const std::string &filename);
+        void searchSnippets();
 };
 
 
