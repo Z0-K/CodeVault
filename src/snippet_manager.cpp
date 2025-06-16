@@ -149,23 +149,41 @@ void SnippetManager::search_snippets(){
 }
 
 void SnippetManager::delete_snippet_by_id(){
+    if(snippets.empty()){
+        std::cout<<"No snippet to delete.\n";
+        return;
+    }
+
     int id{};
     std::cout<<"Enter ID of snippet to delete: ";
     std::cin >> id;
+
+    if(std::cin.fail()){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout<<"Invalid input. Please enter a number.\n";
+        return;
+    }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    auto it = std::find_if(snippets.begin(), snippets.end(), [id](const Snippet &s){
+    std::cout<<"Are you sure you want to delete snippet ID "<<id<<"? (y/n): ";
+    char confirm{};
+    std::cin>>confirm;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if(confirm != 'y' && confirm != 'Y'){
+        std::cout<<"Deletion canceled.\n";
+        return;
+    }
+
+    auto snipp_id = std::find_if(snippets.begin(), snippets.end(), [id](const Snippet &s){
         return s.id == id;
     });
 
-    
-
-    if(it != snippets.end()){
-        snippets.erase(it);
+    if(snipp_id != snippets.end()){
+        snippets.erase(snipp_id);
         std::cout << "Snippet with ID "<< id <<" deleted.\n";
     } else{
         std::cout<<"No snippet found with ID "<< id << ".\n";
     }
-    
-
 }
