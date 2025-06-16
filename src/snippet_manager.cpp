@@ -97,7 +97,7 @@ void SnippetManager::load_from_file(const std::string &filename){
     std::cout << "Loaded " << snippets.size() << " snippets from file.\n";
 }
 
-void SnippetManager::searchSnippets(){
+void SnippetManager::search_snippets(){
     int option;
     std::string query;
 
@@ -145,5 +145,27 @@ void SnippetManager::searchSnippets(){
     if(!found){
         std::cout<<"No matching snippets found.\n";
     }
+
+}
+
+void SnippetManager::delete_snippet_by_id(){
+    int id{};
+    std::cout<<"Enter ID of snippet to delete: ";
+    std::cin >> id;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    auto it = std::find_if(snippets.begin(), snippets.end(), [id](const Snippet &s){
+        return s.id == id;
+    });
+
+    
+
+    if(it != snippets.end()){
+        snippets.erase(it);
+        std::cout << "Snippet with ID "<< id <<" deleted.\n";
+    } else{
+        std::cout<<"No snippet found with ID "<< id << ".\n";
+    }
+    
 
 }

@@ -19,7 +19,8 @@ class SnippetManager{
         void list_snippets();
         void save_to_file(const std::string &filename);
         void load_from_file(const std::string &filename);
-        void searchSnippets();
+        void search_snippets();
+        void delete_snippet_by_id();
 };
 
 

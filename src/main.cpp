@@ -16,6 +16,7 @@ int main(){
         std::cout << "3. Save to File\n";
         std::cout << "4. Load from File\n";
         std::cout << "5. Search Snippets\n";
+        std::cout << "6. Delete Snippet by ID\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter choice: \n";
 
@@ -42,7 +43,11 @@ int main(){
             manager.load_from_file(filename);
                 break;
             case 5:
-            manager.searchSnippets();
+            manager.search_snippets();
+                break;
+            case 6:
+            manager.delete_snippet_by_id();
+            manager.save_to_file(filename);
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";
