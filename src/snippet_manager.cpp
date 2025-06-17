@@ -55,7 +55,7 @@ void SnippetManager::save_to_file(const std::string &filename){
                 << "\nTitle: "<< s.title
                 << "\nTag: " << s.tag
                 << "\nContent:" << s.content
-                << "\n<<<END>>>";
+                <<"----------\n";
     }
 
     std::cout<< "Snippets saved to " << filename << "\n";
@@ -185,5 +185,28 @@ void SnippetManager::delete_snippet_by_id(){
         std::cout << "Snippet with ID "<< id <<" deleted.\n";
     } else{
         std::cout<<"No snippet found with ID "<< id << ".\n";
+    }
+}
+
+void SnippetManager::filter_by_tag(){
+    std:: string tag;
+    std::cout << "Enter tag to filter by: ";
+    std::getline(std::cin, tag);
+
+    bool found = false;
+    for(const auto &s: snippets){
+        if(s.tag == tag){
+            found = true;
+            std::cout<<"------------------------------\n";
+            std::cout<<"\nID: "<<s.id<<"\n";
+            std::cout<<"Title: "<<s.title<<"\n";
+            std::cout<<"Tag: "<<s.tag<<"\n";
+            std::cout<<"Content: \n"<<s.content<<"\n";
+            std::cout<<"------------------------------\n";
+        }
+    }
+
+    if(!found){
+        std::cout<<"No snippets found with tag: "<<tag<<" .\n";
     }
 }

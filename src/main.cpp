@@ -16,7 +16,8 @@ int main(){
         std::cout << "3. Save to File\n";
         std::cout << "4. Load from File\n";
         std::cout << "5. Search Snippets\n";
-        std::cout << "6. Delete Snippet by ID\n";
+        std::cout << "6. Filter Snippets by Tag\n";
+        std::cout << "7. Delete Snippet by ID\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter choice: \n";
 
@@ -46,6 +47,9 @@ int main(){
             manager.search_snippets();
                 break;
             case 6:
+            manager.filter_by_tag();
+                break;
+            case 7:
             manager.delete_snippet_by_id();
             manager.save_to_file(filename);
                 break;
