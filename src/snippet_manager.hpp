@@ -21,6 +21,7 @@ class SnippetManager{
         void load_from_file(const std::string &filename);
         void search_snippets();
         void filter_by_tag();
+        void edit_snippet_by_id();
         void delete_snippet_by_id();
 };
 

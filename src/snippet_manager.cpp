@@ -55,7 +55,7 @@ void SnippetManager::save_to_file(const std::string &filename){
                 << "\nTitle: "<< s.title
                 << "\nTag: " << s.tag
                 << "\nContent:" << s.content
-                <<"----------\n";
+                <<"<<<END>>>\n";
     }
 
     std::cout<< "Snippets saved to " << filename << "\n";
@@ -209,4 +209,76 @@ void SnippetManager::filter_by_tag(){
     if(!found){
         std::cout<<"No snippets found with tag: "<<tag<<" .\n";
     }
+}
+
+void SnippetManager::edit_snippet_by_id(){
+    int id;
+    std::cout<<"Enter ID of snippet to edit: ";
+    std::cin >> id;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    auto iter = std::find_if(snippets.begin(), snippets.end(), [id](const Snippet &s){
+        return s.id == id;
+    });
+
+    if(iter == snippets.end()){
+        std::cout <<"No snippet found with ID "<<id<<".\n";
+        return;
+    }
+
+    Snippet &s = *iter;
+    std::cout << "\nCurrent Snippet:\n";
+    std::cout << "Title: "<<s.title<<"\n";
+    std::cout << "Tag: "<<s.tag<<"\n";
+    std::cout << "Content: \n"<<s.content<<"\n";
+
+    std::cout << "What do you want to edit? (1 = Title, 2 = Tag, 3 = Content): ";
+    int choice;
+    std::cin >> choice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    switch(choice){
+        case 1:
+        {
+            std::string new_title;
+            std::cout<<"Enter new title: ";
+            std::getline(std::cin, new_title);
+            s.title = new_title;
+            std::cout <<"Title updated.\n";
+            break;
+        }
+        case 2:
+        {
+            std::string new_tag;
+            std::cout <<"Enter new tag: ";
+            std::getline(std::cin, new_tag);
+            s.tag = new_tag;
+            std::cout << "Tag updated.\n";
+            break;
+        }
+        case 3:
+        {
+            std::string new_content, line;
+            std::cout << "Enter new content (end with empty line): \n";
+            while(true)
+            {
+                std::getline(std::cin, line);
+                if(line.empty()) break;
+                new_content += line + "\n";
+            }
+
+            if(!new_content.empty()){
+                s.content = new_content;
+                std::cout <<"Content updated.\n";
+            } else {
+                std::cout << "Content not changed.\n";
+            }
+            break;
+        }
+        default: 
+            std::cout<<"Invalid choice.\n";
+    }
+
+
+
 }

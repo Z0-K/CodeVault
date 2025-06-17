@@ -10,14 +10,19 @@ int main(){
     int choice;
 
     while(true){
-        std::cout << "\n!--CodeVault Menu--!\n";
+        std::cout << "------------------\n";
+        std::cout << "!--CodeVault Menu--!\n";
+        std::cout << "------------------\n";
         std::cout << "1. Add Snippet\n";
         std::cout << "2. List Snippets\n";
         std::cout << "3. Save to File\n";
         std::cout << "4. Load from File\n";
+         std::cout << "------------------\n";
         std::cout << "5. Search Snippets\n";
         std::cout << "6. Filter Snippets by Tag\n";
-        std::cout << "7. Delete Snippet by ID\n";
+        std::cout << "7. Edit Snippet by ID\n";
+        std::cout << "8. Delete Snippet by ID\n";
+        std::cout << "------------------\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter choice: \n";
 
@@ -50,6 +55,10 @@ int main(){
             manager.filter_by_tag();
                 break;
             case 7:
+            manager.edit_snippet_by_id();
+            manager.save_to_file(filename);
+                break;
+            case 8:
             manager.delete_snippet_by_id();
             manager.save_to_file(filename);
                 break;

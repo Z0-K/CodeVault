@@ -13,4 +13,5 @@ It is as mini Github Gist, but offline and local.
 -   List all snippets
 -   Search by title, tag or keyword
 -   Filter snippets by tag
+-   Edit snippet by ID
 -   Delete snippet by id
