@@ -16,17 +16,17 @@ Lightweight, offline alternative to GitHub Gists - designed to quickly store, vi
 
 ## How to use
 
-    1. Compile the program with C++17+ compiler:
+1. Compile the program with C++17+ compiler:
 
     ```
     g++ -std=c++17 -o codevault main.cpp snippet_manager.cpp
 
     ```
 
-    2. Run the application:
+2. Run the application:
 
     ```
     ./codevault
     ```
 
-    3. Use the menu to interact.
+3. Use the menu to interact.
