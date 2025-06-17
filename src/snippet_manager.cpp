@@ -69,6 +69,8 @@ void SnippetManager::load_from_file(const std::string &filename){
     }
 
     std::string line;
+    int loaded_count{0};
+
     while(std::getline(inFile, line)){
         Snippet s;
         try{
@@ -87,13 +89,22 @@ void SnippetManager::load_from_file(const std::string &filename){
         }
         s.content = content;
 
+        bool already_on = std::any_of(snippets.begin(), snippets.end(), [s](const Snippet &existing){
+            return existing.id == s.id;
+        });
+
+        if(already_on){
+            std::cerr << "Snippet with ID "<< s.id <<" already loaded!\n";
+            continue;
+        }
+
         snippets.push_back(s);
+        loaded_count++;
+
         if (s.id >= nextID) {
             nextID = s.id + 1;
         }
-
     }
-
     std::cout << "Loaded " << snippets.size() << " snippets from file.\n";
 }
 
