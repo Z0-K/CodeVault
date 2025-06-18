@@ -34,6 +34,11 @@ void SnippetManager::add_snippet(){
 }
 
 void SnippetManager::list_snippets(){
+    if(snippets.empty()){
+        std::cout<<"No snippets to display.\n";
+        return;
+    }
+
     for(const auto &s : snippets){
         std::cout<<"----------\n" << s.id 
                 << "\n" <<s.title

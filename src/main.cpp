@@ -7,6 +7,7 @@
 int main(){
     SnippetManager manager;
     const std::string filename = "snippets.txt";
+    manager.load_from_file(filename);
     int choice;
 
     while(true){
