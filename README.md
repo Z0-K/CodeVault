@@ -35,7 +35,7 @@ Lightweight, offline alternative to GitHub Gists - designed to quickly store, vi
 
 ## File format(snippets.txt)
 
-Snippets are stored in a plain-text file like this:
+1. Snippets are stored in a plain-text file like this:
 
     ```
     ID: 1
@@ -46,11 +46,11 @@ Snippets are stored in a plain-text file like this:
     <h1> HTML </h1>
     ```
 
-Each snippet includes:
+2.Each snippet includes:
 
-1. An auto-incemented numeric ID
-2. Title and tag on separate lines
-3. Code content(multi-line)
+    - An auto-incemented numeric ID
+    - Title and tag on separate lines
+    - Code content(multi-line)
 
 ### Licence
 
