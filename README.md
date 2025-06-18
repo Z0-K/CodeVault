@@ -21,7 +21,7 @@ Lightweight, offline alternative to GitHub Gists - designed to quickly store, vi
 1. Compile the program with C++17+ compiler:
 
     ```
-    g++ -std=c++17 -o codevault main.cpp snippet_manager.cpp
+    g++ src/main.cpp src/snippet_manager.cpp -o codevault
 
     ```
 
@@ -32,3 +32,26 @@ Lightweight, offline alternative to GitHub Gists - designed to quickly store, vi
     ```
 
 3. Use the menu to interact.
+
+## File format(snippets.txt)
+
+Snippets are stored in a plain-text file like this:
+
+    ```
+    ID: 1
+    Title: HTML
+    Tag: html
+    Favorite: 0
+    Content:
+    <h1> HTML </h1>
+    ```
+
+Each snippet includes:
+
+1. An auto-incemented numeric ID
+2. Title and tag on separate lines
+3. Code content(multi-line)
+
+### Licence
+
+MIT License — feel free to use and modify.
