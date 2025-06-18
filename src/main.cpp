@@ -7,7 +7,6 @@
 int main(){
     SnippetManager manager;
     const std::string filename = "snippets.txt";
-    manager.load_from_file(filename);
     int choice;
 
     while(true){
@@ -45,7 +44,7 @@ int main(){
             manager.add_snippet();
                 break;
             case 2:
-            manager.list_snippets();
+            manager.list_snippets(filename);
                 break;
             case 3:
             manager.save_to_file(filename);

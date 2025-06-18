@@ -16,7 +16,7 @@ class SnippetManager{
 
     public: 
         void add_snippet();
-        void list_snippets();
+        void list_snippets(const std::string &filename);
         void save_to_file(const std::string &filename);
         void load_from_file(const std::string &filename);
         void search_snippets();

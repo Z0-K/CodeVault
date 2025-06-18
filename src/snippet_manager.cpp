@@ -33,17 +33,51 @@ void SnippetManager::add_snippet(){
     std::cout <<"Snippet added.\n";
 }
 
-void SnippetManager::list_snippets(){
+void SnippetManager::list_snippets(const std::string &filename){
+    snippets.clear();
+    std::ifstream in_file(filename);
+    if(!in_file){
+        std::cout << "No snippet found.\n";
+    }
+
+    Snippet temp;
+    std::string line;
+    bool reading_content = false;
+    temp = Snippet{};
+    
+    while(std::getline(in_file, line)){
+        if(line.rfind("ID: ", 0) == 0){
+            temp = Snippet{};
+            temp.id = std::stoi(line.substr(4));
+        }else if(line.rfind("Title: ", 0) == 0){
+            temp.title = line.substr(7);
+        }else if(line.rfind("Tag: ", 0) == 0){
+            temp.tag = line.substr(5);
+        }else if(line.rfind("Favorite: ", 0) == 0){
+            temp.is_favorite = (line.substr(10) == "1");
+        }else if(line == "Content:" || line == "Content :"){
+            temp.content.clear();
+            temp.content = true;
+        }else if(line == "---"){
+            reading_content = false;
+            snippets.push_back(temp);
+        }else if(reading_content){
+            temp.content += line + "\n";
+        }
+    }
+
     if(snippets.empty()){
         std::cout<<"No snippets to display.\n";
         return;
     }
 
     for(const auto &s : snippets){
-        std::cout<<"----------\n" << s.id 
-                << "\n" <<s.title
-                << "\n" <<s.tag
-                << "\n" <<s.content
+        std::cout<<"----------\n" 
+                << "ID: \n" << s.id << "\n"
+                << "Title: " << s.title << "\n" 
+                << "Tag: " << s.tag << "\n"
+                << "Favorite: " << (s.is_favorite ? "Yes" : "No") << "\n"
+                << s.content
                 <<"----------\n";
     }
 }
@@ -60,7 +94,7 @@ void SnippetManager::save_to_file(const std::string &filename){
         out_file << "Title: " << s.title << "\n";
         out_file << "Tag: " << s.tag << "\n";
         out_file << "Favorite: " << (s.is_favorite ? "1" : "0") << "\n";
-        out_file << "Content :\n"<< s.content;
+        out_file << "Content: "<< s.content << "\n";
         if(!s.content.empty() && s.content.back() != '\n') out_file << "\n";
         out_file << "---\n";
     }
@@ -85,7 +119,7 @@ void SnippetManager::load_from_file(const std::string &filename){
         if(line.size() >= 4 && line.substr(0, 4) == "ID: "){
             s = Snippet{};
             s.id = std::stoi(line.substr(4));
-        }else if(line.size() >= 5 && line.substr(0, 5) == "Tag: "){
+        }else if(line.size() >= 7 && line.substr(0, 7) == "Tag: "){
             s.title = line.substr(7);
         }else if(line.size() >= 5 && line.substr(0, 5) == "Tag: "){
             s.tag = line.substr(5);
