@@ -8,6 +8,7 @@ struct Snippet{
     std::string title;
     std::string tag;
     std::string content;
+    bool is_favorite = false;
 };
 
 #endif

@@ -49,68 +49,67 @@ void SnippetManager::list_snippets(){
 }
 
 void SnippetManager::save_to_file(const std::string &filename){
-    std::ofstream outFile(filename);
-    if(!outFile){
+    std::ofstream out_file(filename);
+    if(!out_file){
         std::cerr << "Error: Unable to opening file: " << filename << "\n";
         return;
     }
-
+    
     for(const auto& s: snippets){
-        outFile <<  s.id
-                << "\nTitle: "<< s.title
-                << "\nTag: " << s.tag
-                << "\nContent:" << s.content
-                <<"<<<END>>>\n";
+        out_file << "ID: " << s.id << "\n";
+        out_file << "Title: " << s.title << "\n";
+        out_file << "Tag: " << s.tag << "\n";
+        out_file << "Favorite: " << (s.is_favorite ? "1" : "0") << "\n";
+        out_file << "Content :\n"<< s.content;
+        if(!s.content.empty() && s.content.back() != '\n') out_file << "\n";
+        out_file << "---\n";
     }
 
-    std::cout<< "Snippets saved to " << filename << "\n";
+    std::cout<< "Snippets saved to file.\n";
 }
 
 void SnippetManager::load_from_file(const std::string &filename){
-    std::ifstream inFile(filename);
-    if(!inFile){
-        std::cerr << "No snippets file found.\n";
+    std::ifstream in_file(filename);
+    if(!in_file){
+        std::cout << "No snippets file found.\n";
         return;
     }
 
+    snippets.clear();
     std::string line;
-    int loaded_count{0};
+    Snippet s;
+    std::string content_buffer;
+    bool reading_content = false;
 
-    while(std::getline(inFile, line)){
-        Snippet s;
-        try{
-            s.id = std::stoi(line);
-        } catch(...){
-            std::cerr << "Corrupted ID.\n";
-            continue;
-        }
-
-        std::getline(inFile, s.title);
-        std::getline(inFile, s.tag);
-
-        std::string content;
-        while (std::getline(inFile, line) && line != "<<<END>>>") {
-            content += line + "\n";
-        }
-        s.content = content;
-
-        bool already_on = std::any_of(snippets.begin(), snippets.end(), [s](const Snippet &existing){
-            return existing.id == s.id;
-        });
-
-        if(already_on){
-            std::cerr << "Snippet with ID "<< s.id <<" already loaded!\n";
-            continue;
-        }
-
-        snippets.push_back(s);
-        loaded_count++;
-
-        if (s.id >= nextID) {
-            nextID = s.id + 1;
+    while(std::getline(in_file, line)){
+        if(line.size() >= 4 && line.substr(0, 4) == "ID: "){
+            s = Snippet{};
+            s.id = std::stoi(line.substr(4));
+        }else if(line.size() >= 5 && line.substr(0, 5) == "Tag: "){
+            s.title = line.substr(7);
+        }else if(line.size() >= 5 && line.substr(0, 5) == "Tag: "){
+            s.tag = line.substr(5);
+        } else if(line.size() >= 10 && line.substr(0, 10) == "Favorite: "){
+            s.is_favorite = (line.substr(10) == "1");
+        } else if(line == "Content: "){
+            content_buffer.clear();
+            reading_content = true;
+        } else if(line == "---"){
+            s.content = content_buffer;
+            snippets.push_back(s);
+            reading_content = false;
+        } else if(reading_content){
+            content_buffer += line + "\n";
         }
     }
-    std::cout << "Loaded " << snippets.size() << " snippets from file.\n";
+
+    nextID = 1;
+    for(const auto &snip : snippets){
+        if(snip.id >= nextID){
+            nextID = snip.id + 1;
+        }
+    }
+    std::cout << "Snippets loaded from file.\n";
 }
 
 void SnippetManager::search_snippets(){
@@ -297,4 +296,40 @@ void SnippetManager::edit_snippet_by_id(){
 
 
 
+}
+
+void SnippetManager::add_favorite_snippet(){
+    int id;
+    std::cout<<"Enter ID to toggle favorite: ";
+    std::cin >> id;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    for(auto &s : snippets){
+        if(s.id == id){
+            s.is_favorite = !s.is_favorite;
+            std::cout << "Snippet ID "<< id << (s.is_favorite ? " marked as favorite.\n" : " unmarked as favorite.\n");
+            return;
+        }
+    }
+
+    std::cout << "No snippet found with ID "<< id << ".\n";
+}
+
+void SnippetManager::list_favorites(){
+    bool found = false;
+    for(const auto &s: snippets){
+        if(s.is_favorite){
+            found = true;
+            std::cout<<"------------------------------\n";
+            std::cout<<"\nID: "<<s.id<<"\n";
+            std::cout<<"Title: "<<s.title<<"\n";
+            std::cout<<"Tag: "<<s.tag<<"\n";
+            std::cout<<"Content:\n"<<s.content<<"\n";
+            std::cout<<"------------------------------\n";
+        }
+    }
+
+    if(!found){
+        std::cout <<"No favorite snippets found.\n";
+    }
 }

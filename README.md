@@ -12,6 +12,8 @@ Lightweight, offline alternative to GitHub Gists - designed to quickly store, vi
 -   Search snippets by title, tag or content keyword
 -   Filter snippets by tag
 -   Edit snippet by ID
+-   Add snippets to Favorite category
+-   List Favorite snippets
 -   Delete snippet by ID
 
 ## How to use

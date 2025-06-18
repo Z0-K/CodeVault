@@ -23,6 +23,8 @@ class SnippetManager{
         void filter_by_tag();
         void edit_snippet_by_id();
         void delete_snippet_by_id();
+        void add_favorite_snippet();
+        void list_favorites();
 };
 
 #endif

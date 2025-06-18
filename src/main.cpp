@@ -24,7 +24,11 @@ int main(){
         std::cout << "7. Edit Snippet by ID\n";
         std::cout << "8. Delete Snippet by ID\n";
         std::cout << "------------------\n";
+        std::cout << "9. Add Favorites\n";
+        std::cout << "10.Show Only Favorites\n";
+        std::cout << "------------------\n";
         std::cout << "0. Exit\n";
+        std::cout << "------------------\n";
         std::cout << "Enter choice: \n";
 
         if(!(std::cin >> choice)){
@@ -62,6 +66,12 @@ int main(){
             case 8:
             manager.delete_snippet_by_id();
             manager.save_to_file(filename);
+                break;
+            case 9:
+            manager.add_favorite_snippet();
+                break;
+            case 10:
+            manager.list_favorites();
                 break;
             case 0:
                 std::cout << "Exiting CodeVault. GoodBye!\n";
